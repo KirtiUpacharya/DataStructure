@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<body>
+
+    <button onclick="callApi()">Blank</button>
+    <button onclick="callApi('kirti')">Kirti</button>
+    <button onclick="callApi('pratik')">Pratik</button>
+
+    <p>Called Button Is - </p>
+    <p id="responseData"></p>
+
+</body>
+<script>
+    function callApi(apiName) {
+        if(apiName == undefined) {
+            apiName = ""; 
+        }
+
+        console.log("/" + apiName);
+        // call an api
+        axios.get("http://localhost:3001/" + apiName)
+        .then( response => {                    
+            console.log(response.data);
+            document.getElementById("responseData").innerHTML = response.data;
+        })
+        .catch( err => {
+            console.log(err);
+        })
+    }
+</script>
+
+</html>
