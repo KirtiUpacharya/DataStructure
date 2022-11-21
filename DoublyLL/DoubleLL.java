@@ -21,6 +21,34 @@ public DoubleLL()
     this.Head=null;
     this.tail=null;
 }
+public void addbeginning(int data)
+{
+Listnode addnode=new Listnode(data);
+addnode.Previous=null;
+Head.Previous=addnode;
+addnode.next=Head;
+Head=addnode;
+}
+
+public void addLast(int data)
+{
+    Listnode addlast=new Listnode(data);
+    tail.next=addlast;
+    addlast.Previous=tail;
+    addlast.next=null;
+    tail=addlast;
+
+}
+public void deletelastDLL()
+{
+Listnode cur= tail;
+//Listnode newtail=
+//tail.next=null;
+tail=tail.Previous;
+cur.Previous =null;
+
+
+}
 
 public void Displayforward()
 {
@@ -32,6 +60,7 @@ public void Displayforward()
  }
 System.out.println("");
 }
+
 public void Displayreverse()
 {
  Listnode currentnode=tail;
@@ -73,8 +102,21 @@ second.Previous=LL.Head;
 third.Previous=second;
 LL.tail.Previous=third;
 
+
 LL.Displayforward();
 LL.Displayreverse();
+LL.length();
+LL.addbeginning(90);
+LL.Displayforward();
+LL.Displayreverse();
+LL.addLast(110);
+LL.Displayreverse();
+LL.Displayforward();
+LL.deletelastDLL();
+System.out.println("Here is deleted");
+LL.Displayreverse();
+LL.deletelastDLL();
+LL.Displayforward();
 LL.length();
 
 }
