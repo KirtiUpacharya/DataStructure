@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class tree{
@@ -136,28 +138,99 @@ else{
 
 public void iterativepostorder(Treenode root)
 {
-  Stack<Treenode> stack =new Stack<>();
-  Treenode Temp3=root;
-  stack.push(root);
-  while(!stack.isEmpty())
+Treenode current=root;
+Stack<Treenode> stack=new Stack<>();
+Treenode Temp4;
+while((!(stack.isEmpty())) || current!=null )
+{
+if(current !=null)
+{
+stack.push(current);
+current=current.Leftpointer;
+}else
+{ 
+  Temp4=stack.peek().Rightpointer;
+  if(Temp4==null)
   {
-
-   while((Temp3.Rightpointer!=null) && (Temp3.Leftpointer!=null))
-   {
-    if(Temp3.Rightpointer!=null)
-    {
-      stack.push(Temp3.Rightpointer);
-    }
-    else{
-     if(Temp3.Leftpointer!=null)
-     {
-       stack.push(Temp3.Leftpointer);
-     }
-    }
-    Temp3=stack.pop();
-    System.out.println(Temp3.Data);
-   }
+  Temp4=stack.pop();
+  System.out.println(Temp4.Data);
+  
+  while(!stack.isEmpty() && Temp4==stack.peek().Rightpointer)
+  {
+    Temp4=stack.pop();
+    System.out.println(Temp4.Data);
   }
+  }
+else{
+  current=Temp4;
+}
+}
+}}
+
+public void Levelordertraversal()
+{
+Queue<Treenode> queue=new LinkedList<>();
+Treenode Temp5;
+
+queue.add(root);
+while(!(queue.isEmpty()))
+{
+  //queue.add(root);
+  Temp5=queue.poll();
+  System.out.println(Temp5.Data);
+  
+  if(Temp5.Leftpointer!=null)
+  {
+     
+     queue.add(Temp5.Leftpointer);
+     
+  }
+  if(Temp5.Rightpointer!=null)
+  {
+    queue.add(Temp5.Rightpointer);
+  }
+}
+
+}
+
+
+//find maximum value in the binary tree.
+public int findmaxvalue(Treenode root)
+{
+  //Base case
+  if(root==null)
+  {
+    return Integer.MIN_VALUE;
+  }
+int result=root.Data;
+int Left=findmaxvalue(root.Leftpointer);
+int Right=findmaxvalue(root.Rightpointer);
+if(Left>result)
+{
+ result=Left;
+}
+if(Right>result)
+{
+ result=Right;
+}
+
+return result;
+}
+public Treenode InsertBinarySearch(Treenode root,int value)
+{
+if(root==null)
+{
+  root=new Treenode(value);
+  return root;
+}
+if(value<root.Data)
+{
+  root.Leftpointer=InsertBinarySearch(root.Leftpointer, value);
+
+}else{
+  root.Rightpointer=InsertBinarySearch(root.Rightpointer, value);
+}
+return root;
 }
  public static void main(String[] args)
  {
@@ -170,12 +243,15 @@ public void iterativepostorder(Treenode root)
    treee.root.Leftpointer= second;
    treee.root.Rightpointer=third;
    third.Rightpointer=fourth;
-
+   System.out.println("Binary tree insertion-------------------->");
+   Treenode insertion=treee.InsertBinarySearch(treee.root, 20);
+   System.out.println(insertion.Data);
+   treee.Levelordertraversal();
    //treee.GenerateTree(20); 
   
    //treee.preorder(treee.root);
    //treee.iterativepreorder(treee.root);
-   treee.preorder(treee.root);
+   treee.preorder(treee.root); 
    System.out.println("");
    treee.iterativepreeorder(treee.root);
    System.out.println("");
@@ -186,5 +262,11 @@ public void iterativepostorder(Treenode root)
    treee.postorder(treee.root);
    System.out.println("New Function-------------------->");
    treee.iterativepostorder(treee.root);
+   System.out.println("Levelorder-------------------->");
+   treee.Levelordertraversal();
+   System.out.println("MAx Value-------------------->");
+  int result=treee.findmaxvalue(treee.root);
+  System.out.println(result);
+  
  }
  }
