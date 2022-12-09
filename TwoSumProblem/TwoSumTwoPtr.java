@@ -15,7 +15,7 @@ Arrays.sort(arr);
       int sum=arr[Left]+arr[Right];
       if(sum==target)
       {
-          result[0]=Left;
+          result[0]=Left;  
           result[1]=Right;
           return result;
       }else if(sum>target)
